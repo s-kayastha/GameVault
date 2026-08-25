@@ -1,6 +1,8 @@
 import { Heart, Monitor } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type GameCardProps = {
+  id: number;
   title: string;
   genre: string;
   platform: string;
@@ -8,18 +10,16 @@ type GameCardProps = {
 };
 
 function GameCard({
+  id,
   title,
   genre,
   platform,
   image,
 }: GameCardProps) {
   return (
-    <article className="game-card">
+    <Link to={`/game/${id}`} className="game-card">
       <div className="game-image">
-        <img
-          src={image}
-          alt={title}
-        />
+        <img src={image} alt={title} />
 
         <button
           className="favorite-button"
@@ -39,7 +39,7 @@ function GameCard({
           <span>{platform}</span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
 

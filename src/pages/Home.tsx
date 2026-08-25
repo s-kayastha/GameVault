@@ -110,6 +110,7 @@ function Home() {
           <div className="game-grid">
             {filteredGames.slice(0, 8).map((game) => (
              <GameCard
+              id={game.id}
               key={game.id}
               title={game.title}
               genre={game.genre}
