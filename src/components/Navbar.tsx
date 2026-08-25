@@ -1,21 +1,28 @@
-import { Gamepad2, Heart } from "lucide-react";
+import { Gamepad2, Heart, Home } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <div className="logo">
+      <NavLink to="/" className="logo">
         <Gamepad2 size={28} />
         <span>GameVault</span>
-      </div>
+      </NavLink>
 
       <div className="nav-links">
-        <a href="#">Discover</a>
-        <a href="#">Games</a>
+        <NavLink to="/">
+          <Home size={17} />
+          Discover
+        </NavLink>
 
-        <a href="#">
+        <NavLink to="/">
+          Games
+        </NavLink>
+
+        <NavLink to="/favorites">
           <Heart size={17} />
           Favorites
-        </a>
+        </NavLink>
       </div>
     </nav>
   );
