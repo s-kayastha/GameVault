@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import GameDetails from "./pages/GameDetails";
+import Favorites from "./pages/Favorites";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/game/:id" element={<GameDetails />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </BrowserRouter>
   );
