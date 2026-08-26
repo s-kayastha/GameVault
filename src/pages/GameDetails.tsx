@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Heart,
+  Calendar,
+  Monitor,
+  Building2,
+  UserRound,
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { getGameDetails } from "../services/gameApi";
 
@@ -23,6 +31,7 @@ function GameDetails() {
   const [game, setGame] = useState<GameDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     async function loadGame() {
@@ -34,6 +43,21 @@ function GameDetails() {
         const data = await getGameDetails(Number(id));
 
         setGame(data);
+
+        const savedFavorites = localStorage.getItem(
+          "gamevault-favorites"
+        );
+
+        const favorites = savedFavorites
+          ? JSON.parse(savedFavorites)
+          : [];
+
+        setIsFavorite(
+          favorites.some(
+            (favorite: { id: number }) =>
+              favorite.id === data.id
+          )
+        );
       } catch (err) {
         console.error(err);
         setError("Failed to load game details.");
@@ -44,6 +68,51 @@ function GameDetails() {
 
     loadGame();
   }, [id]);
+
+  const handleFavorite = () => {
+    if (!game) return;
+
+    const savedFavorites = localStorage.getItem(
+      "gamevault-favorites"
+    );
+
+    const favorites = savedFavorites
+      ? JSON.parse(savedFavorites)
+      : [];
+
+    if (isFavorite) {
+      const updatedFavorites = favorites.filter(
+        (favorite: { id: number }) =>
+          favorite.id !== game.id
+      );
+
+      localStorage.setItem(
+        "gamevault-favorites",
+        JSON.stringify(updatedFavorites)
+      );
+
+      setIsFavorite(false);
+    } else {
+      const favoriteGame = {
+        id: game.id,
+        title: game.title,
+        genre: game.genre,
+        platform: game.platform,
+        image: game.thumbnail,
+      };
+
+      favorites.push(favoriteGame);
+
+      localStorage.setItem(
+        "gamevault-favorites",
+        JSON.stringify(favorites)
+      );
+
+      setIsFavorite(true);
+    }
+
+    window.dispatchEvent(new Event("favoritesUpdated"));
+  };
 
   if (loading) {
     return (
@@ -58,13 +127,21 @@ function GameDetails() {
       <main className="details-page">
         <p>{error || "Game not found."}</p>
 
-        <Link to="/">
+        <Link to="/" className="back-button">
           <ArrowLeft size={18} />
           Back to Home
         </Link>
       </main>
     );
   }
+
+  const formattedDate = new Date(
+    game.release_date
+  ).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <main className="details-page">
@@ -76,12 +153,44 @@ function GameDetails() {
       <section className="game-details">
         <div className="details-image">
           <img src={game.thumbnail} alt={game.title} />
+
+          <button
+            className={`details-favorite-button ${
+              isFavorite ? "active" : ""
+            }`}
+            onClick={handleFavorite}
+            aria-label={
+              isFavorite
+                ? "Remove from favorites"
+                : "Add to favorites"
+            }
+          >
+            <Heart
+              size={22}
+              fill={isFavorite ? "currentColor" : "none"}
+            />
+          </button>
         </div>
 
         <div className="details-content">
-          <p className="section-label">{game.genre}</p>
+          <div className="details-title-row">
+            <div>
+              <p className="section-label">
+                {game.genre}
+              </p>
 
-          <h1>{game.title}</h1>
+              <h1>{game.title}</h1>
+            </div>
+
+            <span className="platform-badge">
+              <Monitor size={16} />
+              {game.platform}
+            </span>
+          </div>
+
+          <p className="details-short-description">
+            {game.short_description}
+          </p>
 
           <p className="details-description">
             {game.description}
@@ -89,23 +198,30 @@ function GameDetails() {
 
           <div className="game-meta">
             <div>
-              <span>Platform</span>
-              <strong>{game.platform}</strong>
+              <UserRound size={18} />
+
+              <div>
+                <span>Developer</span>
+                <strong>{game.developer}</strong>
+              </div>
             </div>
 
             <div>
-              <span>Developer</span>
-              <strong>{game.developer}</strong>
+              <Building2 size={18} />
+
+              <div>
+                <span>Publisher</span>
+                <strong>{game.publisher}</strong>
+              </div>
             </div>
 
             <div>
-              <span>Publisher</span>
-              <strong>{game.publisher}</strong>
-            </div>
+              <Calendar size={18} />
 
-            <div>
-              <span>Release Date</span>
-              <strong>{game.release_date}</strong>
+              <div>
+                <span>Release Date</span>
+                <strong>{formattedDate}</strong>
+              </div>
             </div>
           </div>
 
