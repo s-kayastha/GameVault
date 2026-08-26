@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 /* =========================================================
-   GAMEVAULT — INDEX.CSS
-   Clean, consolidated stylesheet
+   GAMEVAULT
+   FINAL CONSOLIDATED INDEX.CSS
    ========================================================= */
 
 /* =========================================================
@@ -10,13 +10,20 @@
    ========================================================= */
 
 :root {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
-  --bg: #09090b;
-  --bg-soft: #0f0f12;
-  --surface: #151519;
-  --surface-2: #1b1b20;
-  --surface-hover: #222229;
+  --bg: #08080b;
+  --bg-soft: #0d0d11;
+
+  --surface: #121216;
+  --surface-2: #18181d;
+  --surface-3: #202027;
 
   --text: #f4f4f5;
   --text-muted: #a1a1aa;
@@ -25,14 +32,19 @@
   --purple: #7c3aed;
   --purple-bright: #8b5cf6;
   --purple-light: #c4b5fd;
+  --purple-soft: rgba(124, 58, 237, 0.12);
 
   --blue: #60a5fa;
+  --green: #34d399;
+  --red: #f87171;
 
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
+  --border-purple: rgba(139, 92, 246, 0.45);
+
+  --navbar-height: 72px;
 
   --container: 1400px;
-  --navbar-height: 72px;
 
   --radius-sm: 10px;
   --radius-md: 16px;
@@ -42,15 +54,16 @@
   --shadow-card:
     0 20px 50px rgba(0, 0, 0, 0.28);
 
-  --shadow-purple:
-    0 18px 45px rgba(124, 58, 237, 0.22);
+  --shadow-heavy:
+    0 30px 80px rgba(0, 0, 0, 0.42);
 
-  color: var(--text);
-  background: var(--bg);
+  --shadow-purple:
+    0 18px 45px rgba(124, 58, 237, 0.24);
 }
 
+
 /* =========================================================
-   2. RESET / GLOBAL
+   2. RESET
    ========================================================= */
 
 *,
@@ -60,6 +73,7 @@
 }
 
 html {
+  min-width: 320px;
   scroll-behavior: smooth;
   background: var(--bg);
 }
@@ -67,12 +81,13 @@ html {
 body {
   min-width: 320px;
   min-height: 100vh;
+
   margin: 0;
 
   background:
     radial-gradient(
       circle at 50% -15%,
-      rgba(124, 58, 237, 0.12),
+      rgba(124, 58, 237, 0.1),
       transparent 38%
     ),
     var(--bg);
@@ -98,7 +113,8 @@ select {
 
 button,
 input,
-select {
+select,
+textarea {
   outline: none;
 }
 
@@ -124,6 +140,7 @@ select:focus-visible {
   min-height: 100vh;
 }
 
+
 /* =========================================================
    3. APP SHELL
    ========================================================= */
@@ -134,11 +151,12 @@ select:focus-visible {
   background:
     radial-gradient(
       circle at 50% -20%,
-      rgba(124, 58, 237, 0.14),
+      rgba(124, 58, 237, 0.1),
       transparent 40%
     ),
     var(--bg);
 }
+
 
 /* =========================================================
    4. NAVBAR
@@ -157,7 +175,8 @@ select:focus-visible {
 
   padding: 0 7%;
 
-  background: rgba(9, 9, 11, 0.84);
+  background: rgba(8, 8, 11, 0.84);
+
   border-bottom: 1px solid var(--border);
 
   backdrop-filter: blur(18px);
@@ -175,11 +194,14 @@ select:focus-visible {
   font-weight: 800;
   letter-spacing: -0.04em;
 
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .logo:hover {
   color: var(--purple-light);
+  transform: translateY(-1px);
 }
 
 .logo svg {
@@ -192,18 +214,19 @@ select:focus-visible {
   gap: 28px;
 
   color: var(--text-muted);
+
   font-size: 14px;
   font-weight: 500;
 }
 
 .nav-links a {
+  position: relative;
+
   display: inline-flex;
   align-items: center;
   gap: 7px;
 
-  position: relative;
-
-  padding: 7px 0;
+  padding: 8px 0;
 
   transition:
     color 0.2s ease,
@@ -223,14 +246,19 @@ select:focus-visible {
   content: "";
 
   position: absolute;
+
   left: 0;
   right: 0;
-  bottom: -3px;
+  bottom: 0;
 
   height: 2px;
 
   border-radius: 999px;
+
   background: var(--purple-bright);
+
+  box-shadow:
+    0 0 12px rgba(139, 92, 246, 0.5);
 }
 
 .favorite-count {
@@ -252,8 +280,9 @@ select:focus-visible {
   font-weight: 800;
 }
 
+
 /* =========================================================
-   5. SHARED TYPOGRAPHY / SECTIONS
+   5. TYPOGRAPHY
    ========================================================= */
 
 .eyebrow,
@@ -262,15 +291,19 @@ select:focus-visible {
 
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 0.15em;
   line-height: 1.3;
+
   text-transform: uppercase;
 }
 
 .section {
   width: min(var(--container), 100%);
+
   margin: 0 auto;
-  padding: 75px 7%;
+
+  padding: 80px 7%;
 }
 
 .section-header {
@@ -279,7 +312,8 @@ select:focus-visible {
   justify-content: space-between;
 
   gap: 24px;
-  margin-bottom: 30px;
+
+  margin-bottom: 32px;
 }
 
 .section h2 {
@@ -287,13 +321,15 @@ select:focus-visible {
 
   color: #fff;
 
-  font-size: clamp(28px, 3vw, 34px);
+  font-size: clamp(28px, 3vw, 36px);
   line-height: 1.1;
-  letter-spacing: -0.04em;
+
+  letter-spacing: -0.045em;
 }
 
 .section-description {
   max-width: 560px;
+
   margin-top: 10px;
 
   color: var(--text-muted);
@@ -310,6 +346,7 @@ select:focus-visible {
   padding: 0;
 
   color: var(--purple-light);
+
   background: transparent;
   border: 0;
 
@@ -323,30 +360,34 @@ select:focus-visible {
 
 .view-all:hover {
   color: #fff;
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
+
 /* =========================================================
-   6. HOME — HERO
+   6. HOME HERO
    ========================================================= */
 
 .hero {
   position: relative;
 
-  min-height: 650px;
+  min-height: 700px;
 
   display: flex;
   align-items: center;
 
   overflow: hidden;
 
-  background:
-    radial-gradient(
-      circle at 75% 30%,
-      rgba(124, 58, 237, 0.18),
-      transparent 30%
-    ),
-    var(--bg);
+  isolation: isolate;
+
+  /*
+    The background image is supplied dynamically
+    from Home.tsx using backgroundImage.
+  */
+  background-color: var(--bg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .hero::before {
@@ -355,45 +396,61 @@ select:focus-visible {
   position: absolute;
   inset: 0;
 
+  z-index: -3;
+
   pointer-events: none;
 
   background:
     radial-gradient(
-      circle at 80% 50%,
-      rgba(96, 165, 250, 0.08),
-      transparent 25%
+      circle at 72% 45%,
+      rgba(124, 58, 237, 0.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 20% 70%,
+      rgba(96, 165, 250, 0.07),
+      transparent 28%
     );
 }
 
+/*
+  Cinematic overlay.
+
+  This keeps the game artwork visible while
+  protecting the text from the background.
+*/
 .hero-overlay {
   position: absolute;
   inset: 0;
-  z-index: 0;
+
+  z-index: -2;
 
   pointer-events: none;
 
   background:
     linear-gradient(
       90deg,
-      rgba(9, 9, 11, 0.98) 0%,
-      rgba(9, 9, 11, 0.9) 38%,
-      rgba(9, 9, 11, 0.55) 68%,
-      rgba(9, 9, 11, 0.3) 100%
+      rgba(5, 5, 8, 0.98) 0%,
+      rgba(5, 5, 8, 0.92) 30%,
+      rgba(5, 5, 8, 0.66) 58%,
+      rgba(5, 5, 8, 0.48) 100%
     ),
     linear-gradient(
-      to top,
-      rgba(9, 9, 11, 0.98),
-      transparent 45%
+      180deg,
+      rgba(5, 5, 8, 0.3) 0%,
+      rgba(5, 5, 8, 0.05) 42%,
+      rgba(5, 5, 8, 0.94) 100%
     );
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 
-  width: min(700px, 86%);
+  width: min(680px, 58%);
 
   margin-left: 7%;
+
   padding: 110px 0;
 }
 
@@ -402,38 +459,59 @@ select:focus-visible {
   align-items: center;
   gap: 8px;
 
-  padding: 8px 12px;
+  margin-bottom: 22px;
+
+  padding: 8px 14px;
 
   color: var(--purple-light);
 
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.22);
+  background: rgba(19, 10, 38, 0.62);
+
+  border: 1px solid rgba(167, 139, 250, 0.25);
   border-radius: 999px;
 
   font-size: 10px;
   font-weight: 800;
+
   letter-spacing: 0.1em;
+
+  backdrop-filter: blur(12px);
+}
+
+.hero-badge svg {
+  color: var(--purple-light);
+}
+
+.hero .eyebrow {
+  margin: 0 0 14px;
 }
 
 .hero h1 {
-  max-width: 780px;
-  margin: 18px 0 0;
+  max-width: 680px;
+
+  margin: 0;
 
   color: #fff;
 
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  line-height: 0.94;
-  letter-spacing: -0.065em;
+  font-size: clamp(3.6rem, 6.3vw, 5.8rem);
+
+  line-height: 0.98;
+
+  letter-spacing: -0.06em;
+
+  text-wrap: balance;
 }
 
 .hero h1 span {
   display: block;
 
-  background: linear-gradient(
-    90deg,
-    var(--purple-light),
-    var(--blue)
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #c4b5fd,
+      #a78bfa 45%,
+      #60a5fa
+    );
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -442,52 +520,68 @@ select:focus-visible {
 }
 
 .hero-description {
-  max-width: 580px;
-  margin-top: 26px;
+  max-width: 570px;
 
-  color: var(--text-muted);
+  margin: 28px 0 0;
+
+  color: rgba(255, 255, 255, 0.68);
 
   font-size: 16px;
   line-height: 1.75;
 }
 
+
+/* =========================================================
+   7. HOME SEARCH
+   ========================================================= */
+
 .search-box {
   display: flex;
   align-items: center;
+
   gap: 12px;
 
-  width: 100%;
-  max-width: 620px;
+  width: min(100%, 620px);
 
-  min-height: 58px;
+  min-height: 62px;
 
   margin-top: 28px;
+
   padding: 0 18px;
 
   color: var(--text-dim);
 
-  background: rgba(18, 18, 22, 0.9);
-  border: 1px solid var(--border-strong);
+  background: rgba(10, 10, 13, 0.84);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
   border-radius: var(--radius-md);
 
   box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.22);
+    0 18px 50px rgba(0, 0, 0, 0.32);
 
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(18px);
 
   transition:
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .search-box:focus-within {
-  background: rgba(22, 22, 26, 0.96);
-  border-color: rgba(167, 139, 250, 0.7);
+  background: rgba(13, 13, 17, 0.94);
+
+  border-color: rgba(167, 139, 250, 0.65);
 
   box-shadow:
     0 0 0 4px rgba(124, 58, 237, 0.1),
-    0 18px 45px rgba(0, 0, 0, 0.3);
+    0 20px 55px rgba(0, 0, 0, 0.36);
+}
+
+.search-box svg {
+  flex-shrink: 0;
+
+  color: rgba(255, 255, 255, 0.48);
 }
 
 .search-box input {
@@ -497,7 +591,9 @@ select:focus-visible {
   padding: 16px 0;
 
   color: #fff;
+
   background: transparent;
+
   border: 0;
 }
 
@@ -512,16 +608,23 @@ select:focus-visible {
 
   font-size: 9px;
   font-weight: 800;
+
   letter-spacing: 0.12em;
 }
+
+
+/* =========================================================
+   8. HERO STATS
+   ========================================================= */
 
 .hero-stats {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
 
-  margin-top: 20px;
+  gap: 22px;
+
+  margin-top: 22px;
 
   color: var(--text-muted);
 
@@ -532,6 +635,7 @@ select:focus-visible {
 .hero-stats > div {
   display: inline-flex;
   align-items: center;
+
   gap: 7px;
 }
 
@@ -540,105 +644,159 @@ select:focus-visible {
 }
 
 .stat-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 
   border-radius: 50%;
-  background: #34d399;
 
-  box-shadow: 0 0 12px rgba(52, 211, 153, 0.5);
+  background: var(--green);
+
+  box-shadow:
+    0 0 14px rgba(52, 211, 153, 0.55);
 }
+
+
+/* =========================================================
+   9. FEATURED GAME
+   ========================================================= */
 
 .featured-game {
   position: absolute;
-  right: 7%;
-  bottom: 12%;
 
-  z-index: 2;
+  z-index: 4;
 
-  width: min(330px, 30vw);
+  right: 6vw;
+  bottom: 82px;
 
-  padding: 22px;
+  width: min(370px, 29vw);
 
-  background: rgba(12, 12, 15, 0.68);
+  padding: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(28, 28, 34, 0.94),
+      rgba(12, 12, 16, 0.95)
+    );
+
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   border-radius: var(--radius-lg);
 
-  box-shadow: var(--shadow-card);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.46),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.featured-game:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(139, 92, 246, 0.4);
 }
 
 .featured-label {
+  margin: 0;
+
   color: var(--purple-light);
 
   font-size: 10px;
   font-weight: 800;
+
   letter-spacing: 0.14em;
 }
 
 .featured-game h2 {
-  margin-top: 9px;
+  margin: 10px 0 0;
 
   color: #fff;
 
-  font-size: 24px;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  font-size: 28px;
+  line-height: 1.1;
+
+  letter-spacing: -0.04em;
 }
 
-.featured-game p:not(.featured-label) {
-  margin-top: 8px;
+.featured-game > p:not(.featured-label) {
+  margin: 10px 0 0;
 
   color: var(--text-muted);
 
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .featured-button {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
 
-  margin-top: 18px;
-  padding: 10px 14px;
+  margin-top: 24px;
+
+  padding: 12px 17px;
 
   color: #fff;
+
   background: var(--purple);
 
   border: 0;
-  border-radius: 10px;
+  border-radius: 11px;
 
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 
+  box-shadow:
+    0 10px 25px rgba(124, 58, 237, 0.24);
+
   transition:
+    transform 0.2s ease,
     background 0.2s ease,
-    transform 0.2s ease;
+    box-shadow 0.2s ease;
 }
 
 .featured-button:hover {
-  background: var(--purple-bright);
   transform: translateY(-2px);
+
+  background: var(--purple-bright);
+
+  box-shadow:
+    0 14px 30px rgba(124, 58, 237, 0.35);
 }
 
+.featured-button svg {
+  transition: transform 0.2s ease;
+}
+
+.featured-button:hover svg {
+  transform: translateX(3px);
+}
+
+
 /* =========================================================
-   7. GAME GRID
+   10. GAME GRID
    ========================================================= */
 
 .game-grid {
   display: grid;
 
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
 
-  gap: 20px;
+  gap: 22px;
 }
 
+
 /* =========================================================
-   8. GAME CARD
+   11. GAME CARD
    ========================================================= */
 
 .game-card {
+  position: relative;
+
   display: block;
 
   overflow: hidden;
@@ -646,9 +804,11 @@ select:focus-visible {
   background: var(--surface);
 
   border: 1px solid var(--border);
+
   border-radius: var(--radius-md);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.14);
 
   transition:
     transform 0.25s ease,
@@ -657,13 +817,14 @@ select:focus-visible {
 }
 
 .game-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-7px);
 
-  border-color: rgba(139, 92, 246, 0.5);
+  border-color:
+    rgba(139, 92, 246, 0.5);
 
   box-shadow:
-    0 22px 45px rgba(0, 0, 0, 0.35),
-    0 0 30px rgba(124, 58, 237, 0.08);
+    0 24px 50px rgba(0, 0, 0, 0.35),
+    0 0 32px rgba(124, 58, 237, 0.08);
 }
 
 .game-image {
@@ -673,7 +834,12 @@ select:focus-visible {
 
   aspect-ratio: 16 / 9;
 
-  background: var(--bg-soft);
+  background:
+    linear-gradient(
+      135deg,
+      var(--surface-2),
+      var(--bg-soft)
+    );
 }
 
 .game-image img {
@@ -682,7 +848,9 @@ select:focus-visible {
 
   object-fit: cover;
 
-  transition: transform 0.45s ease;
+  transition:
+    transform 0.5s ease,
+    opacity 0.3s ease;
 }
 
 .game-card:hover .game-image img {
@@ -698,16 +866,23 @@ select:focus-visible {
   background:
     linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.48),
+      rgba(0, 0, 0, 0.52),
       transparent 60%
     );
 }
 
+
+/* =========================================================
+   12. FAVORITE BUTTON
+   ========================================================= */
+
 .favorite-button {
   position: absolute;
+
   top: 12px;
   right: 12px;
-  z-index: 2;
+
+  z-index: 5;
 
   width: 40px;
   height: 40px;
@@ -720,65 +895,82 @@ select:focus-visible {
 
   color: #fff;
 
-  background: rgba(9, 9, 11, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    rgba(8, 8, 11, 0.8);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.16);
+
   border-radius: 50%;
 
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
 
   transition:
     transform 0.2s ease,
-    background 0.2s ease,
     color 0.2s ease,
+    background 0.2s ease,
     border-color 0.2s ease;
 }
 
 .favorite-button:hover {
   transform: scale(1.08);
 
-  color: #fff;
   background: var(--purple);
 
-  border-color: rgba(196, 181, 253, 0.6);
+  border-color:
+    rgba(196, 181, 253, 0.65);
 }
 
 .favorite-button.active {
   color: #fff;
 
   background: var(--purple);
+
   border-color: var(--purple-light);
 
-  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.3);
+  box-shadow:
+    0 8px 24px rgba(124, 58, 237, 0.32);
 }
+
+
+/* =========================================================
+   13. GAME CARD INFORMATION
+   ========================================================= */
 
 .game-info {
   min-width: 0;
 
-  padding: 17px;
+  padding: 18px;
 }
 
 .game-genre {
   margin-bottom: 7px;
 
+  overflow: hidden;
+
   color: var(--purple-light);
 
   font-size: 10px;
   font-weight: 800;
+
   letter-spacing: 0.1em;
+
   text-transform: uppercase;
 
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .game-info h3 {
   overflow: hidden;
 
+  margin: 0;
+
   color: #fff;
 
   font-size: 16px;
   font-weight: 700;
+
   line-height: 1.35;
 
   white-space: nowrap;
@@ -788,6 +980,7 @@ select:focus-visible {
 .game-platform {
   display: flex;
   align-items: center;
+
   gap: 6px;
 
   margin-top: 10px;
@@ -799,21 +992,29 @@ select:focus-visible {
 
 .game-platform svg {
   flex-shrink: 0;
+
   color: var(--purple-light);
 }
 
+
 /* =========================================================
-   9. HOME — GENRES
+   14. HOME GENRES
    ========================================================= */
 
+/*
+  This section remains supported for components that use it.
+  If you removed it from Home.tsx, it simply won't render.
+*/
+
 .genres-section {
-  padding-top: 20px;
+  padding-top: 25px;
   padding-bottom: 100px;
 }
 
 .genres {
   display: flex;
   flex-wrap: wrap;
+
   gap: 10px;
 }
 
@@ -822,8 +1023,12 @@ select:focus-visible {
 
   color: var(--text-muted);
 
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--border);
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  border:
+    1px solid var(--border);
+
   border-radius: 999px;
 
   font-size: 13px;
@@ -833,14 +1038,18 @@ select:focus-visible {
     transform 0.2s ease,
     color 0.2s ease,
     border-color 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .genre-button:hover {
   color: #fff;
 
-  background: rgba(124, 58, 237, 0.12);
-  border-color: rgba(167, 139, 250, 0.5);
+  background:
+    rgba(124, 58, 237, 0.12);
+
+  border-color:
+    rgba(167, 139, 250, 0.5);
 
   transform: translateY(-2px);
 }
@@ -849,13 +1058,16 @@ select:focus-visible {
   color: #fff;
 
   background: var(--purple);
+
   border-color: var(--purple);
 
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+  box-shadow:
+    0 9px 22px rgba(124, 58, 237, 0.28);
 }
 
+
 /* =========================================================
-   10. HOME — STATES
+   15. HOME STATES
    ========================================================= */
 
 .loading-state,
@@ -864,9 +1076,10 @@ select:focus-visible {
   min-height: 250px;
 
   display: flex;
+  flex-direction: column;
+
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 
   padding: 40px;
 
@@ -881,6 +1094,7 @@ select:focus-visible {
 
 .empty-state {
   border: 1px solid var(--border);
+
   border-radius: var(--radius-lg);
 
   background:
@@ -892,7 +1106,7 @@ select:focus-visible {
 }
 
 .empty-state h3 {
-  margin-top: 14px;
+  margin: 14px 0 0;
 
   color: #fff;
 
@@ -901,19 +1115,266 @@ select:focus-visible {
 
 .empty-state p {
   max-width: 430px;
-  margin-top: 8px;
+
+  margin: 8px 0 0;
 
   color: var(--text-muted);
 
   line-height: 1.7;
 }
 
+
 /* =========================================================
-   11. GAMES LIBRARY PAGE
+   16. HOME GAME SHOWCASE
+   ========================================================= */
+
+.showcase-section {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 85px 0 105px;
+
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(124, 58, 237, 0.08),
+      transparent 30%
+    ),
+    var(--bg);
+}
+
+.showcase-header {
+  width: min(1200px, calc(100% - 40px));
+
+  margin: 0 auto 38px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.showcase-header h2 {
+  margin: 8px 0 10px;
+
+  color: #fff;
+
+  font-size: clamp(2rem, 4vw, 3.2rem);
+
+  letter-spacing: -0.045em;
+}
+
+.showcase-link {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px 18px;
+
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.showcase-link:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    rgba(124, 58, 237, 0.5);
+
+  background:
+    rgba(124, 58, 237, 0.08);
+}
+
+.showcase-wrapper {
+  width: 100%;
+
+  overflow: hidden;
+
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+}
+
+.showcase-track {
+  display: flex;
+
+  width: max-content;
+
+  gap: 20px;
+
+  /*
+    Slow cinematic movement.
+    The previous stylesheet had duplicate showcase
+    definitions and conflicting animation timing.
+  */
+  animation:
+    showcase-scroll 1280s linear infinite;
+}
+
+.showcase-track:hover {
+  animation-play-state: paused;
+}
+
+.showcase-card {
+  position: relative;
+
+  width: 260px;
+  height: 330px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  background: var(--surface);
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 18px;
+
+  color: inherit;
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.showcase-card:hover {
+  transform: translateY(-8px);
+
+  border-color:
+    rgba(124, 58, 237, 0.6);
+
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.34);
+}
+
+.showcase-image {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+}
+
+.showcase-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.55s ease;
+}
+
+.showcase-card:hover .showcase-image img {
+  transform: scale(1.08);
+}
+
+.showcase-image-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 28%,
+      rgba(0, 0, 0, 0.3) 52%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+}
+
+.showcase-card-content {
+  position: absolute;
+
+  z-index: 2;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 24px;
+}
+
+.showcase-card-content span {
+  display: inline-block;
+
+  margin-bottom: 7px;
+
+  color: var(--purple-light);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.showcase-card-content h3 {
+  margin: 0 0 5px;
+
+  color: #fff;
+
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.showcase-card-content p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 12px;
+}
+
+@keyframes showcase-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform:
+      translateX(calc(-50% - 10px));
+  }
+}
+
+
+/* =========================================================
+   17. GAMES LIBRARY PAGE
    ========================================================= */
 
 .games-page {
-  min-height: calc(100vh - var(--navbar-height));
+  min-height:
+    calc(100vh - var(--navbar-height));
 
   background:
     radial-gradient(
@@ -929,11 +1390,12 @@ select:focus-visible {
 
   overflow: hidden;
 
-  padding: 85px 7% 55px;
+  padding: 88px 7% 58px;
 
   text-align: center;
 
-  border-bottom: 1px solid var(--border);
+  border-bottom:
+    1px solid var(--border);
 
   background:
     radial-gradient(
@@ -952,6 +1414,7 @@ select:focus-visible {
   content: "";
 
   position: absolute;
+
   width: 420px;
   height: 420px;
 
@@ -960,25 +1423,51 @@ select:focus-visible {
 
   border-radius: 50%;
 
-  background: rgba(124, 58, 237, 0.08);
+  background:
+    rgba(124, 58, 237, 0.08);
 
   filter: blur(45px);
 
   pointer-events: none;
 }
 
+.games-header::after {
+  content: "";
+
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  left: -160px;
+  bottom: -180px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(96, 165, 250, 0.05);
+
+  filter: blur(50px);
+
+  pointer-events: none;
+}
+
 .games-header > * {
   position: relative;
+
   z-index: 1;
 }
 
 .games-header h1 {
-  margin-top: 12px;
+  margin: 12px 0 0;
 
   color: #fff;
 
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size:
+    clamp(3rem, 6vw, 5.4rem);
+
   line-height: 0.95;
+
   letter-spacing: -0.06em;
 }
 
@@ -993,7 +1482,10 @@ select:focus-visible {
   line-height: 1.7;
 }
 
-/* Search + genre filter */
+
+/* =========================================================
+   18. GAMES SEARCH + GENRE FILTER
+   ========================================================= */
 
 .games-filter-bar {
   display: flex;
@@ -1001,21 +1493,25 @@ select:focus-visible {
 
   width: min(850px, 100%);
 
-  min-height: 62px;
+  min-height: 64px;
 
-  margin: 32px auto 0;
+  margin: 34px auto 0;
 
   overflow: hidden;
 
-  background: rgba(17, 17, 19, 0.88);
-  border: 1px solid var(--border-strong);
+  background:
+    rgba(17, 17, 19, 0.88);
+
+  border:
+    1px solid var(--border-strong);
+
   border-radius: var(--radius-md);
 
   box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.25),
     0 0 40px rgba(124, 58, 237, 0.06);
 
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
 
   transition:
     border-color 0.2s ease,
@@ -1024,8 +1520,11 @@ select:focus-visible {
 }
 
 .games-filter-bar:focus-within {
-  background: rgba(20, 20, 24, 0.94);
-  border-color: rgba(139, 92, 246, 0.55);
+  background:
+    rgba(20, 20, 24, 0.95);
+
+  border-color:
+    rgba(139, 92, 246, 0.55);
 
   box-shadow:
     0 0 0 4px rgba(124, 58, 237, 0.08),
@@ -1035,10 +1534,12 @@ select:focus-visible {
 .games-search-input {
   display: flex;
   align-items: center;
-  gap: 12px;
 
   flex: 1;
+
   min-width: 0;
+
+  gap: 12px;
 
   padding: 0 20px;
 
@@ -1053,12 +1554,15 @@ select:focus-visible {
   width: 100%;
   min-width: 0;
 
-  padding: 16px 0;
+  padding: 17px 0;
 
   color: #fff;
 
   background: transparent;
+
   border: 0;
+
+  font-size: 15px;
 }
 
 .games-search-input input::placeholder {
@@ -1068,13 +1572,16 @@ select:focus-visible {
 .genre-filter {
   display: flex;
   align-items: center;
+
   gap: 10px;
 
   padding: 0 20px;
 
-  border-left: 1px solid var(--border);
+  background:
+    rgba(255, 255, 255, 0.025);
 
-  background: rgba(255, 255, 255, 0.025);
+  border-left:
+    1px solid var(--border);
 }
 
 .genre-filter span {
@@ -1082,20 +1589,23 @@ select:focus-visible {
 
   font-size: 10px;
   font-weight: 800;
+
   letter-spacing: 0.1em;
+
   text-transform: uppercase;
 
   white-space: nowrap;
 }
 
 .genre-filter select {
-  min-width: 130px;
+  min-width: 135px;
 
   padding: 8px 24px 8px 4px;
 
   color: #fff;
 
   background: transparent;
+
   border: 0;
 
   font-size: 14px;
@@ -1106,17 +1616,21 @@ select:focus-visible {
 
 .genre-filter select option {
   color: #fff;
+
   background: #151518;
 }
 
-/* Games content */
+
+/* =========================================================
+   19. GAMES CONTENT
+   ========================================================= */
 
 .games-content {
   width: min(var(--container), 100%);
 
   margin: 0 auto;
 
-  padding: 45px 7% 100px;
+  padding: 48px 7% 110px;
 }
 
 .games-results-header {
@@ -1124,10 +1638,12 @@ select:focus-visible {
   align-items: center;
   justify-content: space-between;
 
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .games-results-header p {
+  margin: 0;
+
   color: var(--text-dim);
 
   font-size: 13px;
@@ -1135,7 +1651,9 @@ select:focus-visible {
 }
 
 .games-content .game-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
   gap: 22px;
 }
 
@@ -1155,23 +1673,26 @@ select:focus-visible {
   min-height: 300px;
 }
 
+
 /* =========================================================
-   12. GAME DETAILS PAGE
+   20. GAME DETAILS PAGE
    ========================================================= */
 
 .details-page {
-  min-height: calc(100vh - var(--navbar-height));
+  min-height:
+    calc(100vh - var(--navbar-height));
 
   width: min(1280px, 88%);
 
   margin: 0 auto;
 
-  padding: 48px 0 90px;
+  padding: 50px 0 100px;
 }
 
 .back-button {
   display: inline-flex;
   align-items: center;
+
   gap: 8px;
 
   margin-bottom: 32px;
@@ -1187,7 +1708,9 @@ select:focus-visible {
 
 .back-button:hover {
   color: #fff;
-  transform: translateX(-3px);
+
+  transform:
+    translateX(-3px);
 }
 
 .game-details {
@@ -1203,11 +1726,20 @@ select:focus-visible {
 
   padding: 28px;
 
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--border);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.018)
+    );
+
+  border:
+    1px solid var(--border);
+
   border-radius: var(--radius-lg);
 
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.22);
 }
 
 .details-image {
@@ -1217,9 +1749,9 @@ select:focus-visible {
 
   aspect-ratio: 16 / 10;
 
-  border-radius: var(--radius-md);
-
   background: var(--surface);
+
+  border-radius: var(--radius-md);
 
   box-shadow:
     0 25px 60px rgba(0, 0, 0, 0.32);
@@ -1229,6 +1761,7 @@ select:focus-visible {
   content: "";
 
   position: absolute;
+
   inset: 0;
 
   pointer-events: none;
@@ -1247,19 +1780,26 @@ select:focus-visible {
 
   object-fit: cover;
 
-  transition: transform 0.45s ease;
+  transition:
+    transform 0.5s ease;
 }
 
 .details-image:hover img {
   transform: scale(1.04);
 }
 
+
+/* =========================================================
+   21. DETAILS FAVORITE BUTTON
+   ========================================================= */
+
 .details-favorite-button {
   position: absolute;
+
   top: 16px;
   right: 16px;
 
-  z-index: 3;
+  z-index: 4;
 
   width: 48px;
   height: 48px;
@@ -1272,8 +1812,12 @@ select:focus-visible {
 
   color: #fff;
 
-  background: rgba(9, 9, 11, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    rgba(8, 8, 11, 0.82);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.15);
+
   border-radius: 50%;
 
   backdrop-filter: blur(12px);
@@ -1286,13 +1830,27 @@ select:focus-visible {
 
 .details-favorite-button:hover {
   transform: scale(1.08);
+
   background: var(--purple);
+
+  border-color:
+    var(--purple-light);
 }
 
 .details-favorite-button.active {
   background: var(--purple);
-  border-color: var(--purple-light);
+
+  border-color:
+    var(--purple-light);
+
+  box-shadow:
+    0 10px 25px rgba(124, 58, 237, 0.32);
 }
+
+
+/* =========================================================
+   22. DETAILS CONTENT
+   ========================================================= */
 
 .details-content {
   min-width: 0;
@@ -1307,18 +1865,22 @@ select:focus-visible {
 }
 
 .details-title-row h1 {
-  margin-top: 8px;
+  margin: 8px 0 0;
 
   color: #fff;
 
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size:
+    clamp(2.5rem, 5vw, 4.5rem);
+
   line-height: 0.95;
+
   letter-spacing: -0.055em;
 }
 
 .platform-badge {
   display: inline-flex;
   align-items: center;
+
   gap: 7px;
 
   flex-shrink: 0;
@@ -1327,8 +1889,12 @@ select:focus-visible {
 
   color: var(--purple-light);
 
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.25);
+  background:
+    rgba(124, 58, 237, 0.1);
+
+  border:
+    1px solid rgba(167, 139, 250, 0.25);
+
   border-radius: 999px;
 
   font-size: 12px;
@@ -1336,28 +1902,36 @@ select:focus-visible {
 }
 
 .details-short-description {
-  margin-top: 24px;
+  margin: 25px 0 0;
 
   color: #fff;
 
   font-size: 17px;
   font-weight: 600;
+
   line-height: 1.6;
 }
 
 .details-description {
-  margin-top: 16px;
+  margin: 16px 0 0;
 
   color: var(--text-muted);
 
   font-size: 15px;
+
   line-height: 1.8;
 }
+
+
+/* =========================================================
+   23. GAME META
+   ========================================================= */
 
 .game-meta {
   display: grid;
 
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
 
   gap: 12px;
 
@@ -1369,12 +1943,17 @@ select:focus-visible {
 
   display: flex;
   align-items: flex-start;
+
   gap: 12px;
 
   padding: 16px;
 
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--border);
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  border:
+    1px solid var(--border);
+
   border-radius: var(--radius-sm);
 
   transition:
@@ -1383,8 +1962,11 @@ select:focus-visible {
 }
 
 .game-meta > div:hover {
-  background: rgba(124, 58, 237, 0.07);
-  border-color: rgba(167, 139, 250, 0.3);
+  background:
+    rgba(124, 58, 237, 0.07);
+
+  border-color:
+    rgba(167, 139, 250, 0.3);
 }
 
 .game-meta > div > svg {
@@ -1400,6 +1982,7 @@ select:focus-visible {
 
   display: flex;
   flex-direction: column;
+
   gap: 5px;
 }
 
@@ -1408,7 +1991,9 @@ select:focus-visible {
 
   font-size: 10px;
   font-weight: 800;
+
   letter-spacing: 0.08em;
+
   text-transform: uppercase;
 }
 
@@ -1418,17 +2003,20 @@ select:focus-visible {
   color: var(--text);
 
   font-size: 14px;
+
   line-height: 1.35;
 }
 
+
 /* =========================================================
-   13. SHARED BUTTONS
+   24. SHARED BUTTONS
    ========================================================= */
 
 .play-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   gap: 10px;
 
   width: fit-content;
@@ -1436,15 +2024,18 @@ select:focus-visible {
   padding: 14px 24px;
 
   color: #fff;
+
   background: var(--purple);
 
   border: 0;
+
   border-radius: 12px;
 
   font-size: 14px;
   font-weight: 700;
 
-  box-shadow: var(--shadow-purple);
+  box-shadow:
+    var(--shadow-purple);
 
   transition:
     transform 0.2s ease,
@@ -1453,26 +2044,28 @@ select:focus-visible {
 }
 
 .play-button:hover {
-  background: var(--purple-bright);
-
   transform: translateY(-2px);
+
+  background: var(--purple-bright);
 
   box-shadow:
     0 16px 35px rgba(124, 58, 237, 0.35);
 }
 
+
 /* =========================================================
-   14. FAVORITES PAGE
+   25. FAVORITES PAGE
    ========================================================= */
 
 .favorites-page {
   width: min(var(--container), 100%);
 
-  min-height: calc(100vh - var(--navbar-height));
+  min-height:
+    calc(100vh - var(--navbar-height));
 
   margin: 0 auto;
 
-  padding: 70px 7% 100px;
+  padding: 72px 7% 110px;
 }
 
 .favorites-header {
@@ -1482,25 +2075,29 @@ select:focus-visible {
 
   gap: 24px;
 
-  margin-bottom: 40px;
+  margin-bottom: 42px;
 }
 
 .favorites-header h1 {
-  margin-top: 8px;
+  margin: 8px 0 0;
 
   color: #fff;
 
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-size:
+    clamp(2.8rem, 5vw, 4.5rem);
+
   line-height: 0.95;
+
   letter-spacing: -0.05em;
 }
 
 .favorites-header p:not(.section-label) {
-  margin-top: 10px;
+  margin: 10px 0 0;
 
   color: var(--text-muted);
 
   font-size: 14px;
+
   line-height: 1.6;
 }
 
@@ -1509,6 +2106,7 @@ select:focus-visible {
 
   display: flex;
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
@@ -1523,11 +2121,15 @@ select:focus-visible {
       transparent 60%
     );
 
-  border: 1px solid var(--border);
+  border:
+    1px solid var(--border);
+
   border-radius: var(--radius-lg);
 }
 
 .empty-favorites h2 {
+  margin: 0;
+
   color: #fff;
 
   font-size: 25px;
@@ -1544,14 +2146,16 @@ select:focus-visible {
   line-height: 1.7;
 }
 
+
 /* =========================================================
-   15. RESPONSIVE — LARGE TABLET
+   26. LARGE TABLET
    ========================================================= */
 
 @media (max-width: 1100px) {
   .game-grid,
   .games-content .game-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
   }
 
   .game-meta {
@@ -1566,12 +2170,18 @@ select:focus-visible {
 
   .featured-game {
     right: 5%;
-    width: 280px;
+
+    width: 290px;
+  }
+
+  .hero-content {
+    width: 62%;
   }
 }
 
+
 /* =========================================================
-   16. RESPONSIVE — TABLET
+   27. TABLET
    ========================================================= */
 
 @media (max-width: 850px) {
@@ -1583,8 +2193,13 @@ select:focus-visible {
     padding: 0 5%;
   }
 
+  .hero {
+    min-height: 650px;
+  }
+
   .hero-content {
     width: 90%;
+
     margin-left: 5%;
   }
 
@@ -1599,34 +2214,44 @@ select:focus-visible {
 
   .game-grid,
   .games-content .game-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
   .game-details {
     grid-template-columns: 1fr;
+
+    gap: 32px;
   }
 
   .details-image {
-    max-height: 500px;
+    max-height: 520px;
   }
 
   .favorites-header {
     align-items: flex-start;
+
     flex-direction: column;
   }
 
   .games-header {
-    padding: 75px 5% 50px;
+    padding:
+      75px 5% 50px;
   }
 
   .games-content {
     padding-left: 5%;
     padding-right: 5%;
   }
+
+  .showcase-header {
+    width: calc(100% - 40px);
+  }
 }
 
+
 /* =========================================================
-   17. RESPONSIVE — MOBILE
+   28. MOBILE
    ========================================================= */
 
 @media (max-width: 650px) {
@@ -1636,6 +2261,7 @@ select:focus-visible {
 
   .nav-links {
     gap: 15px;
+
     font-size: 12px;
   }
 
@@ -1647,18 +2273,42 @@ select:focus-visible {
     display: none;
   }
 
+  .logo {
+    font-size: 19px;
+  }
+
   .hero {
-    min-height: 560px;
+    min-height: 610px;
+
+    background-position:
+      62% center;
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5, 5, 8, 0.97),
+        rgba(5, 5, 8, 0.82)
+      ),
+      linear-gradient(
+        to top,
+        rgba(5, 5, 8, 0.98),
+        transparent 60%
+      );
   }
 
   .hero-content {
     width: 90%;
+
     margin-left: 5%;
+
     padding: 80px 0;
   }
 
   .hero h1 {
-    font-size: 3.4rem;
+    font-size:
+      clamp(3rem, 12vw, 4rem);
   }
 
   .hero-description {
@@ -1666,7 +2316,7 @@ select:focus-visible {
   }
 
   .search-box {
-    min-height: 54px;
+    min-height: 56px;
   }
 
   .search-hint {
@@ -1678,11 +2328,13 @@ select:focus-visible {
   }
 
   .section {
-    padding: 55px 5%;
+    padding:
+      58px 5%;
   }
 
   .section-header {
     align-items: flex-start;
+
     flex-direction: column;
   }
 
@@ -1704,11 +2356,13 @@ select:focus-visible {
   }
 
   .games-header {
-    padding: 60px 5% 45px;
+    padding:
+      60px 5% 45px;
   }
 
   .games-header h1 {
-    font-size: 3.4rem;
+    font-size:
+      clamp(3rem, 13vw, 4rem);
   }
 
   .games-header > p:not(.section-label) {
@@ -1725,15 +2379,18 @@ select:focus-visible {
 
   .games-search-input {
     min-height: 58px;
+
     padding: 0 18px;
   }
 
   .genre-filter {
-    min-height: 52px;
+    min-height: 54px;
 
     padding: 0 18px;
 
-    border-top: 1px solid var(--border);
+    border-top:
+      1px solid var(--border);
+
     border-left: 0;
   }
 
@@ -1742,13 +2399,15 @@ select:focus-visible {
   }
 
   .games-content {
-    padding: 35px 5% 70px;
+    padding:
+      35px 5% 70px;
   }
 
   .details-page {
     width: 92%;
 
-    padding: 30px 0 70px;
+    padding:
+      30px 0 70px;
   }
 
   .game-details {
@@ -1774,7 +2433,8 @@ select:focus-visible {
   }
 
   .favorites-page {
-    padding: 50px 5% 80px;
+    padding:
+      50px 5% 80px;
   }
 
   .favorites-header h1 {
@@ -1783,15 +2443,47 @@ select:focus-visible {
 
   .empty-favorites {
     min-height: 330px;
-    padding: 30px 20px;
+
+    padding:
+      30px 20px;
+  }
+
+  .showcase-section {
+    padding:
+      65px 0 80px;
+  }
+
+  .showcase-header {
+    width:
+      calc(100% - 36px);
+
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .showcase-card {
+    width: 230px;
+    height: 300px;
+  }
+
+  .showcase-track {
+    gap: 15px;
+
+    animation-duration: 1280;
   }
 }
 
+
 /* =========================================================
-   18. RESPONSIVE — SMALL PHONES
+   29. SMALL PHONES
    ========================================================= */
 
 @media (max-width: 430px) {
+  .navbar {
+    min-height: 64px;
+  }
+
   .logo {
     font-size: 18px;
   }
@@ -1800,6 +2492,10 @@ select:focus-visible {
     gap: 10px;
   }
 
+  /*
+    Hide the middle "Games" navigation item on
+    very narrow screens to prevent crowding.
+  */
   .nav-links a:nth-child(2) {
     display: none;
   }
@@ -1811,22 +2507,48 @@ select:focus-visible {
     font-size: 9px;
   }
 
-  .details-favorite-button {
-    width: 42px;
-    height: 42px;
+  .hero {
+    min-height: 590px;
   }
 
   .hero h1 {
     font-size: 3rem;
   }
 
+  .hero-badge {
+    font-size: 9px;
+  }
+
+  .hero-description {
+    font-size: 13px;
+  }
+
+  .hero-stats {
+    font-size: 11px;
+  }
+
   .games-header h1 {
     font-size: 3rem;
   }
+
+  .details-favorite-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .details-title-row h1 {
+    font-size: 2.5rem;
+  }
+
+  .showcase-card {
+    width: 215px;
+    height: 285px;
+  }
 }
 
+
 /* =========================================================
-   19. REDUCED MOTION
+   30. REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1837,207 +2559,608 @@ select:focus-visible {
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
   }
 }
-/* ========================================
-   HOME GAME SHOWCASE
-======================================== */
 
-.showcase-section {
-  position: relative;
-  overflow: hidden;
-  padding: 90px 0 110px;
-  background:
-    radial-gradient(
-      circle at 15% 50%,
-      rgba(124, 58, 237, 0.08),
-      transparent 30%
-    ),
-    var(--bg-primary);
-}
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
 
-.showcase-header {
-  width: min(1200px, calc(100% - 40px));
-  margin: 0 auto 38px;
+/* ---------------------------------------------------------
+   TABLET
+   --------------------------------------------------------- */
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 30px;
-}
-
-.showcase-header h2 {
-  margin: 8px 0 10px;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  letter-spacing: -0.04em;
-}
-
-.showcase-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 12px 18px;
-
-  border: 1px solid var(--border);
-  border-radius: 12px;
-
-  color: var(--text-primary);
-  text-decoration: none;
-
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
-}
-
-.showcase-link:hover {
-  transform: translateY(-2px);
-  border-color: rgba(124, 58, 237, 0.5);
-  background: rgba(124, 58, 237, 0.08);
-}
-
-.showcase-wrapper {
-  width: 100%;
-  overflow: hidden;
-
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 6%,
-    black 94%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 6%,
-    black 94%,
-    transparent
-  );
-}
-
-.showcase-track {
-  display: flex;
-  width: max-content;
-  gap: 20px;
-
-  animation: showcase-scroll 1240s linear infinite;
-}
-
-.showcase-track:hover {
-  animation-play-state: paused;
-}
-
-.showcase-card {
-  position: relative;
-
-  width: 260px;
-  height: 330px;
-
-  flex-shrink: 0;
-
-  overflow: hidden;
-
-  border: 1px solid var(--border);
-  border-radius: 18px;
-
-  background: var(--bg-secondary);
-
-  text-decoration: none;
-  color: inherit;
-
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.showcase-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(124, 58, 237, 0.6);
-}
-
-.showcase-image {
-  position: absolute;
-  inset: 0;
-}
-
-.showcase-image img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transition: transform 0.5s ease;
-}
-
-.showcase-card:hover .showcase-image img {
-  transform: scale(1.08);
-}
-
-.showcase-image-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      transparent 30%,
-      rgba(0, 0, 0, 0.25) 50%,
-      rgba(0, 0, 0, 0.95) 100%
-    );
-}
-
-.showcase-card-content {
-  position: absolute;
-  z-index: 2;
-
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  padding: 24px;
-}
-
-.showcase-card-content span {
-  display: inline-block;
-
-  margin-bottom: 7px;
-
-  font-size: 0.7rem;
-  font-weight: 700;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
-  color: #a78bfa;
-}
-
-.showcase-card-content h3 {
-  margin: 0 0 5px;
-
-  font-size: 1.15rem;
-  line-height: 1.25;
-
-  color: white;
-}
-
-.showcase-card-content p {
-  margin: 0;
-
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-@keyframes showcase-scroll {
-  from {
-    transform: translateX(0);
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 18px 28px;
   }
 
-  to {
-    transform: translateX(calc(-50% - 10px));
+  .hero {
+    min-height: 680px;
+    padding: 80px 28px;
+  }
+
+  .hero-content {
+    max-width: 700px;
+  }
+
+  .hero h1 {
+    font-size: clamp(56px, 8vw, 88px);
+    line-height: 0.95;
+  }
+
+  .hero-description {
+    max-width: 600px;
+  }
+
+  .featured-game {
+    right: 28px;
+    bottom: 40px;
+    width: 330px;
+  }
+
+  .section,
+  .games-content,
+  .games-header,
+  .favorites-page,
+  .details-page {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .game-details {
+    gap: 36px;
+  }
+
+  .details-image {
+    width: 45%;
+  }
+
+  .details-content {
+    width: 55%;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE NAVBAR
+   --------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 18px;
+    gap: 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .logo svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-links {
+    gap: 4px;
+  }
+
+  .nav-links a {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .nav-links a svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Hide the text of "Games" only if the navbar becomes tight */
+  .nav-links a:nth-child(2) {
+    display: none;
+  }
+
+
+  /* -------------------------------------------------------
+     HOME HERO
+     ------------------------------------------------------- */
+
+  .hero {
+    min-height: 760px;
+    padding: 70px 20px 40px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: none;
+    z-index: 3;
+  }
+
+  .hero-badge {
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    margin-top: 22px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 14vw, 72px);
+    line-height: 0.94;
+    letter-spacing: -0.055em;
+    max-width: 100%;
+  }
+
+  .hero-description {
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 100%;
+    margin-top: 24px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .hero .search-box {
+    margin-top: 28px;
+  }
+
+  .search-hint {
+    display: none;
+  }
+
+  .hero-stats {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .featured-game {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 28px;
+    width: auto;
+    padding: 22px;
+  }
+
+  .featured-game h2 {
+    font-size: 24px;
+  }
+
+  .featured-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+
+  /* -------------------------------------------------------
+     SECTIONS
+     ------------------------------------------------------- */
+
+  .section,
+  .games-content,
+  .games-header,
+  .favorites-page,
+  .details-page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .section-header {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+  }
+
+  .section-description {
+    font-size: 14px;
+  }
+
+  .view-all {
+    white-space: nowrap;
+  }
+
+
+  /* -------------------------------------------------------
+     GAME GRID
+     ------------------------------------------------------- */
+
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+
+  /* -------------------------------------------------------
+     GAMES PAGE
+     ------------------------------------------------------- */
+
+  .games-page {
+    padding-bottom: 60px;
+  }
+
+  .games-header {
+    padding-top: 55px;
+    padding-bottom: 35px;
+  }
+
+  .games-header h1 {
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .games-header > p:not(.section-label) {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .games-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .games-search-input {
+    width: 100%;
+  }
+
+  .genre-filter {
+    width: 100%;
+  }
+
+  .genre-filter select {
+    width: 100%;
+  }
+
+  .games-results-header {
+    margin-top: 25px;
+  }
+
+
+  /* -------------------------------------------------------
+     FAVORITES
+     ------------------------------------------------------- */
+
+  .favorites-page {
+    padding-top: 50px;
+    padding-bottom: 60px;
+  }
+
+  .favorites-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .favorites-header h1 {
+    font-size: 48px;
+  }
+
+  .back-button {
+    width: fit-content;
+  }
+
+
+  /* -------------------------------------------------------
+     GAME DETAILS
+     ------------------------------------------------------- */
+
+  .details-page {
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+
+  .game-details {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 30px;
+  }
+
+  .details-image,
+  .details-content {
+    width: 100%;
+  }
+
+  .details-image {
+    max-height: 500px;
+  }
+
+  .details-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .details-title-row {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .details-content h1 {
+    font-size: 46px;
+    line-height: 1;
+  }
+
+  .details-description {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .game-meta {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .play-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   SMALL PHONES
+   --------------------------------------------------------- */
+
+@media (max-width: 520px) {
+
+  /* Navbar */
+
+  .navbar {
+    padding: 14px 14px;
+  }
+
+  .logo span {
+    display: none;
+  }
+
+  .nav-links {
+    margin-left: auto;
+  }
+
+  .nav-links a {
+    padding: 8px;
+  }
+
+  .nav-links a svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Keep Favorites visible but compact */
+  .nav-links a:last-child {
+    gap: 5px;
+  }
+
+
+  /* Home */
+
+  .hero {
+    min-height: 730px;
+    padding: 55px 16px 30px;
+  }
+
+  .hero h1 {
+    font-size: clamp(43px, 15vw, 62px);
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .hero-stats {
+    font-size: 13px;
+  }
+
+  .featured-game {
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
+    padding: 18px;
+  }
+
+  .featured-game h2 {
+    font-size: 22px;
+  }
+
+
+  /* Sections */
+
+  .section,
+  .games-content,
+  .games-header,
+  .favorites-page,
+  .details-page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .section-header {
+    flex-direction: column;
+  }
+
+  .section-header h2 {
+    font-size: 29px;
+  }
+
+  .view-all {
+    align-self: flex-start;
+  }
+
+
+  /* Game cards */
+
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+
+  /* Games page */
+
+  .games-header {
+    padding-top: 42px;
+  }
+
+  .games-header h1 {
+    font-size: 42px;
+  }
+
+  .games-filter-bar {
+    margin-top: 24px;
+  }
+
+
+  /* Favorites */
+
+  .favorites-header h1 {
+    font-size: 42px;
+  }
+
+
+  /* Details */
+
+  .details-page {
+    padding-top: 30px;
+  }
+
+  .details-image {
+    max-height: 360px;
+  }
+
+  .details-content h1 {
+    font-size: 38px;
+  }
+
+  .details-title-row {
+    flex-direction: column;
+  }
+
+  .platform-badge {
+    width: fit-content;
+  }
+
+  .details-short-description {
+    font-size: 15px;
+  }
+
+  .game-meta > div {
+    padding: 14px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   VERY SMALL PHONES
+   --------------------------------------------------------- */
+
+@media (max-width: 380px) {
+
+  .nav-links a:last-child {
+    font-size: 0;
+  }
+
+  .nav-links a:last-child svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero {
+    min-height: 700px;
+  }
+
+  .featured-game {
+    padding: 16px;
+  }
+
+  .featured-game h2 {
+    font-size: 20px;
+  }
+
+  .section-header h2 {
+    font-size: 27px;
+  }
+
+  .games-header h1,
+  .favorites-header h1 {
+    font-size: 38px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   TOUCH DEVICES
+   --------------------------------------------------------- */
+
+@media (hover: none) and (pointer: coarse) {
+  .game-card:hover {
+    transform: none;
+  }
+
+  .game-card:active {
+    transform: scale(0.98);
+  }
+
+  .featured-button:active,
+  .play-button:active,
+  .back-button:active {
+    transform: scale(0.97);
+  }
+
+  .nav-links a,
+  button,
+  select,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   REDUCED MOTION
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
