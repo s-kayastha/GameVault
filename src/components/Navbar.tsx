@@ -46,7 +46,7 @@ function Navbar() {
           Discover
         </NavLink>
 
-        <NavLink to="/">
+        <NavLink to="/games">
           Games
         </NavLink>
 
