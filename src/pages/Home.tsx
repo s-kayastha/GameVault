@@ -5,6 +5,7 @@ import {
   ArrowRight,
   Gamepad2,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import GameCard from "../components/GameCard";
 import GenreButton from "../components/GenreButton";
 import { getGames } from "../services/gameApi";
@@ -52,9 +53,12 @@ function Home() {
   }, []);
 
   const filteredGames = games.filter((game) => {
-    const matchesSearch = game.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+  const search = searchTerm.toLowerCase().trim();
+
+    const matchesSearch =
+      game.title.toLowerCase().includes(search) ||
+      game.genre.toLowerCase().includes(search) ||
+      game.platform.toLowerCase().includes(search);
 
     const matchesGenre =
       selectedGenre === "All" ||
@@ -187,11 +191,9 @@ function Home() {
               Discover what players are playing right now.
             </p>
           </div>
-
-          <button className="view-all">
-            View all
-            <ArrowRight size={16} />
-          </button>
+            <Link to="/games" className="view-all">
+               View all →
+            </Link>
 
         </div>
 
@@ -237,45 +239,55 @@ function Home() {
 
       </section>
 
+{/* =========================
+    GAME SHOWCASE
+========================= */}
 
-      {/* =========================
-          GENRES
-      ========================= */}
+<section className="showcase-section">
+  <div className="showcase-header">
+    <div>
+      <p className="section-label">GAMEVAULT COLLECTION</p>
 
-      <section className="section genres-section">
+      <h2>Something worth playing.</h2>
 
-        <div className="section-header">
+      <p className="section-description">
+        Explore a constantly changing selection of games from the GameVault library.
+      </p>
+    </div>
 
-          <div>
-            <p className="section-label">
-              BROWSE
-            </p>
+    <Link to="/games" className="showcase-link">
+      Explore library
+      <ArrowRight size={17} />
+    </Link>
+  </div>
 
-            <h2>
-              Explore by Genre
-            </h2>
+  <div className="showcase-wrapper">
+    <div className="showcase-track">
+      {[...games, ...games].map((game, index) => (
+        <Link
+          to={`/game/${game.id}`}
+          className="showcase-card"
+          key={`${game.id}-${index}`}
+        >
+          <div className="showcase-image">
+            <img
+              src={game.thumbnail}
+              alt={game.title}
+            />
 
-            <p className="section-description">
-              Find your next adventure by choosing a genre.
-            </p>
+            <div className="showcase-image-overlay" />
           </div>
 
-        </div>
-
-        <div className="genres">
-
-          {genres.map((genre) => (
-            <GenreButton
-              key={genre}
-              name={genre}
-              active={selectedGenre === genre}
-              onClick={() => setSelectedGenre(genre)}
-            />
-          ))}
-
-        </div>
-
-      </section>
+          <div className="showcase-card-content">
+            <span>{game.genre}</span>
+            <h3>{game.title}</h3>
+            <p>{game.platform}</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
 
     </main>
   );

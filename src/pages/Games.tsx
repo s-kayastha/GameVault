@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import GameCard from "../components/GameCard";
-import GenreButton from "../components/GenreButton";
 import { getGames } from "../services/gameApi";
 
 type Game = {
@@ -12,17 +11,6 @@ type Game = {
   platform: string;
 };
 
-const genres = [
-  "All",
-  "Action",
-  "RPG",
-  "Adventure",
-  "Strategy",
-  "Sports",
-  "Racing",
-  "Horror",
-];
-
 function Games() {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,11 +18,21 @@ function Games() {
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
+  const genres = [
+    "All",
+    ...Array.from(
+      new Set(
+        games
+          .map((game) => game.genre)
+          .filter(Boolean)
+      )
+    ).sort(),
+  ];
+
   useEffect(() => {
     async function loadGames() {
       try {
         const data = await getGames();
-
         setGames(data);
       } catch (err) {
         console.error(err);
@@ -48,9 +46,12 @@ function Games() {
   }, []);
 
   const filteredGames = games.filter((game) => {
-    const matchesSearch = game.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    const search = searchTerm.toLowerCase().trim();
+
+    const matchesSearch =
+      game.title.toLowerCase().includes(search) ||
+      game.genre.toLowerCase().includes(search) ||
+      game.platform.toLowerCase().includes(search);
 
     const matchesGenre =
       selectedGenre === "All" ||
@@ -71,32 +72,40 @@ function Games() {
           favorite game.
         </p>
 
-        <div className="search-box games-search">
-          <Search size={20} />
+        <div className="games-filter-bar">
+          <div className="games-search-input">
+            <Search size={20} />
 
-          <input
-            type="text"
-            placeholder="Search games..."
-            value={searchTerm}
-            onChange={(event) =>
-              setSearchTerm(event.target.value)
-            }
-          />
+            <input
+              type="text"
+              placeholder="Search games..."
+              value={searchTerm}
+              onChange={(event) =>
+                setSearchTerm(event.target.value)
+              }
+            />
+          </div>
+
+          <div className="genre-filter">
+            <span>Genre</span>
+
+            <select
+              value={selectedGenre}
+              onChange={(event) =>
+                setSelectedGenre(event.target.value)
+              }
+            >
+              {genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </section>
 
       <section className="games-content">
-        <div className="genres">
-          {genres.map((genre) => (
-            <GenreButton
-              key={genre}
-              name={genre}
-              active={selectedGenre === genre}
-              onClick={() => setSelectedGenre(genre)}
-            />
-          ))}
-        </div>
-
         {loading && (
           <p className="games-message">
             Loading games...
