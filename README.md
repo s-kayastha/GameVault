@@ -23,7 +23,8 @@ GameVault is a modern, responsive game discovery web application built with Reac
 
 ### Home
 
-Add a screenshot of your Home page here.
+<img width="1865" height="998" alt="image" src="https://github.com/user-attachments/assets/7f015fb0-128b-4ae7-9635-f87d312cdf6c" />
+
 
 ```text
 ![GameVault Home](./screenshots/home.png)
@@ -31,7 +32,8 @@ Add a screenshot of your Home page here.
 
 ### Games Library
 
-Add a screenshot of your Games page here.
+<img width="1858" height="1000" alt="image" src="https://github.com/user-attachments/assets/749e8578-6415-4ef9-ba2b-1b35422b48d5" />
+
 
 ```text
 ![GameVault Games](./screenshots/games.png)
@@ -39,7 +41,8 @@ Add a screenshot of your Games page here.
 
 ### Game Details
 
-Add a screenshot of your Game Details page here.
+<img width="1807" height="1001" alt="image" src="https://github.com/user-attachments/assets/ef0a3f0d-e249-402f-b33e-ad5accc12164" />
+
 
 ```text
 ![GameVault Details](./screenshots/details.png)
@@ -47,7 +50,8 @@ Add a screenshot of your Game Details page here.
 
 ### Favorites
 
-Add a screenshot of your Favorites page here.
+<img width="1822" height="982" alt="image" src="https://github.com/user-attachments/assets/89c45f91-6193-4754-a649-0cf4cac6e032" />
+
 
 ```text
 ![GameVault Favorites](./screenshots/favorites.png)
